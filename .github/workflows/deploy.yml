@@ -13,5 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{secrets.DOCKER_HUB_USERNAME}}
+          password: ${{secrets.DOCKER_HUB_TOKEN}}
+
       - name: Build the docker Image
         run: docker build --file Dockerfile --tag web-app:${{github.sha}} .
