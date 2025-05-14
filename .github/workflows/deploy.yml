@@ -3,15 +3,15 @@ name : Build Docker Image
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    steps:
-      -name: Checkout repository
-      uses : actions/checkout@v3
 
-      -name : Build the docker Image
-      run : docker build --file Dockerfile --tag web-app:${{github.sha}} .
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build the docker Image
+        run: docker build --file Dockerfile --tag web-app:${{github.sha}} .
