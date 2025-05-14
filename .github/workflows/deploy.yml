@@ -19,5 +19,12 @@ jobs:
           username: ${{secrets.DOCKER_HUB_USERNAME}}
           password: ${{secrets.DOCKER_HUB_TOKEN}}
 
-      - name: Build the docker Image
-        run: docker build --file Dockerfile --tag web-app:${{github.sha}} .
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{secrets.DOCKER_HUB_USERNAME}}/web-app:latest
+            ${{secrets.DOCKER_HUB_USERNAME}}/web-app:${{github.sha}}
